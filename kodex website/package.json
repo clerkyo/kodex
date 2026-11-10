@@ -1,7 +1,0 @@
-{
-  "name": "kodex-website",
-  "version": "1.0.0",
-  "dependencies": {
-    "@vercel/postgres": "^0.8.0"
-  }
-}
