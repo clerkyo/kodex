@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KØDEX | Premium Software</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ==================== LOGIN SCREEN ==================== -->
+    <div id="login-screen" class="auth-container">
+        <div class="auth-box">
+            <h2>KØDEX<span class="accent-blue">.</span></h2>
+            <p>Login to your account</p>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Username (test)" required>
+                <input type="password" id="password" placeholder="Password (test)" required>
+                <button type="submit" class="primary-btn">Login</button>
+            </form>
+            <p class="error-msg" id="login-error"></p>
+        </div>
+    </div>
+
+    <!-- ==================== MAIN APP ==================== -->
+    <div id="app-screen" class="app-container hidden">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>KØDEX<span class="accent-blue">.</span></h2>
+            </div>
+            
+            <nav class="nav-menu">
+                <button class="nav-btn active" onclick="switchTab('home')">Products</button>
+                <button class="nav-btn" onclick="switchTab('chat')">Global Chat</button>
+                <button class="nav-btn" onclick="switchTab('profile')">Profile</button>
+                <button class="nav-btn" onclick="switchTab('pricing')">Pricing</button>
+                <button class="nav-btn" onclick="switchTab('faq')">FAQ</button>
+            </nav>
+
+            <div class="user-panel">
+                <div class="status-dot"></div>
+                <span id="user-display">logged in as test</span>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            
+            <!-- ==================== PRODUCTS / HOME TAB ==================== -->
+            <section id="home" class="tab-content active">
+                <div class="header-section">
+                    <h1>Select a <span class="text-accent-blue">Product</span></h1>
+                    <p class="subtitle">Choose your game to view features and pricing.</p>
+                </div>
+                
+                <div class="product-grid">
+                    <!-- CS2 Card -->
+                    <div class="product-card available" onclick="openProduct('cs2')">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/6/6e/Counter-Strike_2_logo.svg" alt="CS2" class="game-logo">
+                        <h3>Counter-Strike 2</h3>
+                        <p>Premium External Software</p>
+                        <span class="status-badge active-status">Available Now</span>
+                        <button class="view-btn">View Details</button>
+                    </div>
+
+                    <!-- TF2 Card -->
+                    <div class="product-card locked">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Team_Fortress_2_logo.svg" alt="TF2" class="game-logo">
+                        <h3>Team Fortress 2</h3>
+                        <p>Internal & External Package</p>
+                        <span class="status-badge locked-status">Coming Soon</span>
+                        <button class="view-btn disabled-btn" disabled>Locked</button>
+                    </div>
+
+                    <!-- Hood Warfare Card -->
+                    <div class="product-card locked">
+                        <div class="placeholder-logo">HW</div>
+                        <h3>Hood Warfare</h3>
+                        <p>Advanced Combat Overlay</p>
+                        <span class="status-badge locked-status">Coming Soon</span>
+                        <button class="view-btn disabled-btn" disabled>Locked</button>
+                    </div>
+                </div>
+
+                <!-- Homepage Stats (from your image) -->
+                <div class="home-stats">
+                    <div class="stats-box">
+                        <h3>NETWORK</h3>
+                        <div class="stat-row"><span>total users</span><span class="stat-value">85</span></div>
+                        <div class="stat-row"><span>latest user</span><span class="stat-value">david0lg</span></div>
+                    </div>
+                    <div class="stats-box">
+                        <h3>SOFTWARE</h3>
+                        <div class="stat-row"><span>version</span><span class="stat-value">5.0</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== CS2 DETAIL PAGE ==================== -->
+            <section id="cs2" class="tab-content product-page">
+                <div class="back-btn" onclick="switchTab('home')">
+                    <span>←</span> Back to Products
+                </div>
+                
+                <div class="product-header">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/6/6e/Counter-Strike_2_logo.svg" alt="CS2" class="main-game-logo">
+                    <div>
+                        <h1>Counter-Strike 2 <span class="text-accent-blue">External</span></h1>
+                        <p class="subtitle">Undetected, high-performance, and visually stunning.</p>
+                    </div>
+                </div>
+
+                <div class="detail-layout">
+                    <!-- Detailed Features List -->
+                    <div class="details-box">
+                        <h3>Features</h3>
+                        <ul class="feature-list">
+                            <li><span class="blue-check">✔</span> <strong>Aimbot:</strong> Custom smoothing, humanized targeting, FOV slider.</li>
+                            <li><span class="blue-check">✔</span> <strong>ESP:</strong> 2D/3D Boxes, Skeleton, Health, Names, Distance.</li>
+                            <li><span class="blue-check">✔</span> <strong>Triggerbot:</strong> Custom delay and team check.</li>
+                            <li><span class="blue-check">✔</span> <strong>Misc:</strong> Bunnyhop, Radar Hack, No Flash, Bomb Timer.</li>
+                            <li><span class="blue-check">✔</span> <strong>World ESP:</strong> Dropped Weapons, Grenades, Bomb Info.</li>
+                            <li><span class="blue-check">✔</span> <strong>UI:</strong> Fully customizable ImGui menu with configs.</li>
+                            <li><span class="blue-check">✔</span> <strong>Protection:</strong> Streamproof, Anti-Screenshot, HWID Spoofer.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Pricing Box (Locked to Lifetime) -->
+                    <div class="buy-box">
+                        <h3>Subscription</h3>
+                        <div class="price-option best-value">
+                            <span>Lifetime Access</span>
+                            <span class="price">$60.00</span>
+                        </div>
+                        <button class="primary-btn buy-action" onclick="purchase()">Purchase Now</button>
+                        <p class="secure-text">🔒 Secure checkout via Stripe/Crypto</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== PROFILE TAB ==================== -->
+            <section id="profile" class="tab-content">
+                <div class="header-section">
+                    <h1>Profile / <span id="profile-name-display">test</span></h1>
+                </div>
+
+                <div class="profile-grid">
+                    <!-- Account Info -->
+                    <div class="profile-box">
+                        <h3>ACCOUNT</h3>
+                        <div class="profile-row"><span>uid</span><span class="stat-value">1</span></div>
+                        <div class="profile-row"><span>sub</span><span class="stat-value text-accent-blue">lifetime</span></div>
+                        <div class="profile-row"><span>skidding since</span><span class="stat-value">Aug 8, 2026</span></div>
+                    </div>
+
+                    <!-- Connections -->
+                    <div class="profile-box">
+                        <h3>CONNECTIONS</h3>
+                        <div class="profile-row"><span>discord</span><span class="stat-value">@test</span></div>
+                        <a href="https://discord.gg/gRC7DBD5ah" target="_blank" class="discord-btn">
+                            <span>🔗 RELINK DISCORD</span>
+                        </a>
+                    </div>
+
+                    <!-- Activate Sub -->
+                    <div class="profile-box">
+                        <h3>ACTIVATE SUB</h3>
+                        <input type="text" placeholder="subscription code" class="profile-input">
+                        <button class="profile-btn" onclick="activateCode()">ACTIVATE</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== GLOBAL CHAT TAB ==================== -->
+            <section id="chat" class="tab-content">
+                <div class="header-section">
+                    <h1>Global <span class="text-accent-blue">Chat</span></h1>
+                    <p class="subtitle">Talk with other KØDEX users.</p>
+                </div>
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <!-- Chat messages will appear here -->
+                        <div class="chat-msg"><span class="chat-user">system</span>: Welcome to the global chat.</div>
+                        <div class="chat-msg"><span class="chat-user">david0lg</span>: just copped lifetime lets go</div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chat-input" placeholder="Type a message..." onkeydown="if(event.key === 'Enter') sendMessage()">
+                        <button class="primary-btn" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Other Tabs -->
+            <section id="pricing" class="tab-content">
+                <h1>Global Pricing</h1>
+                <p class="subtitle">Select a product first to see specific pricing.</p>
+            </section>
+
+            <section id="faq" class="tab-content">
+                <h1>Frequently Asked Questions</h1>
+                <div class="faq-item">
+                    <h4>Is KØDEX detected?</h4>
+                    <p>We use a fully external user-mode architecture. We are currently undetected on CS2.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="server.js"></script>
+</body>
+</html>
