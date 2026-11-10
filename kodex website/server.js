@@ -48,6 +48,11 @@ function switchTab(tabId) {
 
     const selectedTab = document.getElementById(tabId);
     if (selectedTab) selectedTab.classList.add('active');
+
+    // Load chat when the chat tab is clicked
+    if (tabId === 'chat') {
+        loadChat();
+    }
 }
 
 function openProduct(productId) {
@@ -56,30 +61,73 @@ function openProduct(productId) {
     }
 }
 
-// ==================== CHAT LOGIC ====================
-function sendMessage() {
+// ==================== DATABASE CHAT LOGIC ====================
+async function loadChat() {
+    try {
+        const res = await fetch('/api/chat');
+        const messages = await res.json();
+        const chatBox = document.getElementById('chat-messages');
+        
+        if (!chatBox) return;
+        
+        chatBox.innerHTML = '';
+        
+        messages.forEach(msg => {
+            const newMsg = document.createElement('div');
+            newMsg.className = 'chat-msg';
+            newMsg.innerHTML = `<span class="chat-user">${msg.username}</span>: ${msg.message}`;
+            chatBox.appendChild(newMsg);
+        });
+        chatBox.scrollTop = chatBox.scrollHeight;
+    } catch (err) {
+        console.error("Failed to load chat:", err);
+    }
+}
+
+async function sendMessage() {
     const input = document.getElementById('chat-input');
+    if (!input) return;
+    
     const msg = input.value.trim();
     if (!msg) return;
 
-    const chatBox = document.getElementById('chat-messages');
-    const newMsg = document.createElement('div');
-    newMsg.className = 'chat-msg';
-    newMsg.innerHTML = `<span class="chat-user">test</span>: ${msg}`;
-    
-    chatBox.appendChild(newMsg);
-    input.value = '';
-    chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll
+    try {
+        await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: 'test', message: msg })
+        });
+
+        input.value = '';
+        loadChat(); // Refresh chat immediately
+    } catch (err) {
+        console.error("Failed to send message:", err);
+    }
 }
 
-// ==================== MISC ====================
+// Poll chat every 3 seconds if we are on the chat tab
+setInterval(() => {
+    const chatTab = document.getElementById('chat');
+    if (chatTab && chatTab.classList.contains('active')) {
+        loadChat();
+    }
+}, 3000);
+
+// ==================== MISC UI LOGIC ====================
 function activateCode() {
     alert("Invalid subscription code.");
 }
 
 function purchase() {
     const buyBtn = document.querySelector('.buy-action');
-    buyBtn.innerText = "Redirecting...";
-    buyBtn.style.opacity = "0.8";
-    buyBtn.style.cursor = "wait";
+    if (buyBtn) {
+        buyBtn.innerText = "Redirecting...";
+        buyBtn.style.opacity = "0.8";
+        buyBtn.style.cursor = "wait";
+    }
+}
+
+function toggleFaq(element) {
+    const accordion = element.parentElement;
+    accordion.classList.toggle('active');
 }
